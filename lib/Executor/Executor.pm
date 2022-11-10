@@ -1,5 +1,7 @@
 package Executor::Executor;
 
+use Try::Tiny;
+
 use constant DEFAULT_SIZE => 5;
 use Executor::Future;
 
