@@ -18,7 +18,7 @@ use Moose;
 
 has 'size' => ( is => 'ro',
 		isa => 'Int',
-		default => sub { return DEFAULT_SIZE }
+		default => sub { DEFAULT_SIZE }
 		);
 
 has 'queue' => ( is => 'ro',
