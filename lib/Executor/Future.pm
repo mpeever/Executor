@@ -28,7 +28,7 @@ has 'value' => ( is => 'ro',
 		 lazy => 1,
 		 default => sub {
 		   my $self = shift;
-		   my $output = join("\n", (readline($self->fh)));
+		   my $output = join("", (readline($self->fh)));
 		   close($self->fh);
 		   return $output;
 		 }
