@@ -104,7 +104,9 @@ sub _execute {
 
 =item B<submit($function_ref)>
 
-Submit a function reference for [later] execution.
+Submit a task reference for [later] execution.
+
+The task is executed immediately, unless the current pid table is full.
 
 =cut
 
