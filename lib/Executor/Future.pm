@@ -1,18 +1,18 @@
 package Executor::Future;
 
-=head1 synopsis
+our $VERSION = '0.0.1';
+
+use Moose;
+
+=head1 SYNOPSIS
 
 B<This module> defines a Future object to track task execution in an Executor.
 
-=head1 author
+=head1 AUTHOR
 
 Mark Peever (mpeever@gmail.com)
 
 =cut
-
-our $VERSION = '0.0.1';
-
-use Moose;
 
 has 'callable' => ( is => 'ro' );
 
