@@ -18,16 +18,13 @@ chomp(@test_data_lines);
 
 my $test_data_text = join("\n", @test_data_lines);
 
-my @tasks = (
-	     sub { return 1 + 1},
-	     sub { return 24 * 5 },
-	     sub { return $test_data_text }
-	    );
+my @tasks = ( sub { return 1 + 1},
+	      sub { return 24 * 5 },
+	      sub { return $test_data_text });
 
-my @expected = (2,
-		120,
-		$test_data_text
-	       );
+my @expected = ( 2,
+		 120,
+		 $test_data_text);
 
 my @futures = map { $instance->submit($_) } @tasks;
 

@@ -22,8 +22,7 @@ Mark Peever (mpeever@gmail.com)
 
 has 'size' => ( is => 'ro',
 		isa => 'Int',
-		default => sub { DEFAULT_SIZE }
-		);
+		default => sub { DEFAULT_SIZE });
 
 has 'queue' => ( is => 'ro',
 		 isa => 'ArrayRef',
@@ -33,8 +32,7 @@ has 'queue' => ( is => 'ro',
 			     dequeue => 'pop',
 			     queue_size => 'count'
 			     },
-		 default => sub { [] }
-	       );
+		 default => sub { [] });
 
 has 'pids' => ( is => 'ro',
 	        isa => 'HashRef',
@@ -46,8 +44,7 @@ has 'pids' => ( is => 'ro',
 			    remove_future => 'delete',
 			    is_empty => 'is_empty'
 			   },
-	        default => sub { {} }
-	      );
+	        default => sub { {} });
 
 after 'remove_future' => sub {
   my $self = shift;
@@ -107,9 +104,8 @@ sub submit {
   my $self = shift;
   my $code = shift;
 
-  my $future = Executor::Future->new( { executor => $self,
-					callable => $code }
-				    );
+  my $future = Executor::Future->new({ executor => $self,
+				       callable => $code });
   $self->_execute($future);
 
   unless ($future->pid) { # code is NOT executing, queue for later execution

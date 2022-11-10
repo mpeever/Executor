@@ -17,8 +17,7 @@ Mark Peever (mpeever@gmail.com)
 has 'callable' => ( is => 'ro' );
 
 has 'pid' => ( is => 'rw',
-	       isa => 'Int'
-	     );
+	       isa => 'Int' );
 
 has 'fh' => ( is => 'rw' );
 
@@ -31,8 +30,7 @@ has 'value' => ( is => 'ro',
 		   my $output = join("", (readline($self->fh)));
 		   close($self->fh);
 		   return $output;
-		 }
-	       );
+		 });
 
 after 'value' => sub {
   my $self = shift;
