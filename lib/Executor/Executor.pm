@@ -21,7 +21,6 @@ has 'size' => ( is => 'ro',
 		default => sub { return DEFAULT_SIZE }
 		);
 
-# input queue for submitted jobs
 has 'queue' => ( is => 'ro',
 		 isa => 'ArrayRef',
 		 traits => ['Array'],
@@ -33,7 +32,6 @@ has 'queue' => ( is => 'ro',
 		 default => sub { [] }
 	       );
 
-# collection of child pids
 has 'pids' => ( is => 'ro',
 	        isa => 'HashRef',
 		traits => ['Hash'],
@@ -114,13 +112,10 @@ sub submit {
   return $future;
 }
 
-
 =back
 
 =cut
-
  
 no Moose;
-
 
 return $VERSION;
