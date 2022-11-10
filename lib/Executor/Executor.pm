@@ -1,5 +1,6 @@
 package Executor::Executor;
 
+use Carp;
 use Try::Tiny;
 
 use constant DEFAULT_SIZE => 5;
@@ -75,22 +76,25 @@ sub _execute {
   # Don't execute if our pool is full
   return if $self->all_futures >= $self->size;
 
-  my $pid = open( my $fh, '-|');
+  try {
+    my $pid = open( my $fh, '-|');
 
-  # TODO - clean up this error handling code
-  die unless defined($pid);
+    die "couldn't fork with open()" unless defined($pid);
   
-  if ($pid) { # Parent 
-    $future->pid($pid);
-    $future->fh($fh);
-    $self->add_future($pid, $future);
-  }
+    if ($pid) { # Parent 
+      $future->pid($pid);
+      $future->fh($fh);
+      $self->add_future($pid, $future);
+    }
 
-  else { # Child 
-    my $result = $future->callable->();
-    print STDOUT $result;
-    exit 0;
-  }
+    else { # Child 
+      my $result = $future->callable->();
+      print STDOUT $result;
+      exit 0;
+    }
+  } catch {
+    carp "caught Exception attempting to fork a child process: $_";
+  };
 }
 
 =item B<submit($function_ref)>
