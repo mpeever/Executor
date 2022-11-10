@@ -1,6 +1,11 @@
 package Executor::Executor;
 
+use constant DEFAULT_SIZE => 5;
 use Executor::Future;
+
+our $VERSION = '0.0.1';
+
+use Moose;
 
 =head1 SYNOPSIS
 
@@ -11,10 +16,6 @@ B<This module> defines an Executor that executes tasks in parallel.
 Mark Peever (mpeever@gmail.com)
 
 =cut
-
-our $VERSION = '0.0.1';
-use constant DEFAULT_SIZE => 5;
-use Moose;
 
 has 'size' => ( is => 'ro',
 		isa => 'Int',
