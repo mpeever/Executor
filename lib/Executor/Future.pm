@@ -14,24 +14,30 @@ our $VERSION = '0.0.1';
 
 use Moose;
 
-has 'pid' => ( is => 'ro',
+has 'callable' => ( is => 'ro' );
+
+has 'pid' => ( is => 'rw',
 	       isa => 'Int'
 	     );
 
-has 'fh' => ( is => 'ro' );
+has 'fh' => ( is => 'rw' );
 
-has 'exector' => ( is => 'ro' );
+has 'executor' => ( is => 'ro' );
 
 has 'value' => ( is => 'ro',
 		 lazy => 1,
 		 default => sub {
 		   my $self = shift;
-		   my $filehandle = $self->fh;
-		   my $output = join("\n", (<$filehandle>));
-		   close $filehandle;
+		   my $output = join("\n", (readline($self->fh)));
+		   close($self->fh);
 		   return $output;
-		 } );
+		 }
+	       );
 
+after 'value' => sub {
+  my $self = shift;
+  $self->executor->remove_future($self->pid);
+};
 
 no Moose;
 
