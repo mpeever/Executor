@@ -12,16 +12,48 @@ B<This module> defines a Future object to track task execution in an Executor.
 
 Mark Peever (mpeever@gmail.com)
 
+=head2 METHODS
+
+=over 8
+
+=item B<callable>
+
+Returns the callable code inside this Future.
+
 =cut
 
 has 'callable' => ( is => 'ro' );
 
+=item B<pid>
+
+Returns the PID associated with this Future's execution.
+
+=cut
+
 has 'pid' => ( is => 'rw',
 	       isa => 'Int' );
 
+=item B<fh>
+
+Returns the filehandle associated with STDOUT of the child process.
+
+=cut
+
 has 'fh' => ( is => 'rw' );
 
+=item B<executor>
+
+Returns the Executor that owns this Future object.
+
+=cut
+
 has 'executor' => ( is => 'ro' );
+
+=item B<complete>
+
+Returns boolean indicating whether execution has completed.
+
+=cut
 
 has 'complete' => ( is => 'rw',
 		    default => sub { 0 } );
@@ -29,9 +61,8 @@ has 'complete' => ( is => 'rw',
 around 'complete' => sub {
   my $original = shift;
   my $self = shift;
-  my $value = shift;
 
-  return $self->$original($value) unless $value;
+  return $self->$original(@_) unless @_;
 
   # Can't complete if we don't have a PID.
   return $self->$original() unless $self->pid;
@@ -39,8 +70,15 @@ around 'complete' => sub {
   # we're marking this complete, so we'll remove it from the Executor
   $self->executor->remove_future($self->pid);
 
-  $self->$original($value);
+  $self->$original(@_);
 };
+
+=item B<value>
+
+Return value of the wrapped callable code.
+This is a blocking call, and will wait for a child PID to exit.
+
+=cut
 
 has 'value' => ( is => 'ro',
 		 lazy => 1,
@@ -55,6 +93,10 @@ after 'value' => sub {
   my $self = shift;
   $self->complete(1);
 };
+
+=back
+
+=cut
 
 no Moose;
 

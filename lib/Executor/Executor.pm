@@ -26,11 +26,26 @@ This is loosely based on java.util.concurrent.*
 
 Mark Peever (mpeever@gmail.com)
 
+=head2 METHODS
+
+=over 8
+
+=item B<size>
+
+Returns maximum number of executing processes.
+This doesn't include the submission queue.
+
 =cut
 
 has 'size' => ( is => 'ro',
 		isa => 'Int',
 		default => sub { DEFAULT_SIZE });
+
+=item B<queue>
+
+Returns the submission queue for this Executor.
+
+=cut
 
 has 'queue' => ( is => 'ro',
 		 isa => 'ArrayRef',
@@ -41,6 +56,12 @@ has 'queue' => ( is => 'ro',
 			     queue_size => 'count'
 			     },
 		 default => sub { [] });
+
+=item B<pids>
+
+Returns a Hash of PID => Future of [current] executing tasks.
+
+=cut
 
 has 'pids' => ( is => 'ro',
 	        isa => 'HashRef',
@@ -61,10 +82,6 @@ after 'remove_future' => sub {
     $self->_execute($future);
   }
 };
-
-=head1 METHODS
-
-=over 8
 
 =item B<_execute($future)>
 
