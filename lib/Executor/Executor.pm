@@ -14,6 +14,14 @@ use Moose;
 
 B<This module> defines an Executor that executes tasks in parallel.
 
+B<Executor> provides no retry logic, and no error handling for submitted code.
+It simply maintains a queue of waiting tasks, and a Future mechanism to allow 
+calling code to access the results of computation.
+
+Waiting tasks are executed in order as earlier (executed) tasks are found to be complete.
+
+This is loosely based on java.util.concurrent.*
+
 =head1 AUTHOR
 
 Mark Peever (mpeever@gmail.com)
