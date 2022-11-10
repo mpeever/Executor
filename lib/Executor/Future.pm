@@ -53,7 +53,7 @@ has 'value' => ( is => 'ro',
 
 after 'value' => sub {
   my $self = shift;
-  $self->executor->remove_future($self->pid);
+  $self->complete(1);
 };
 
 no Moose;
