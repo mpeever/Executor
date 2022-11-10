@@ -16,6 +16,7 @@ ok(not $instance->queue_size);
 my @test_data_lines = (<DATA>);
 chomp(@test_data_lines);
 
+# chomp followed by join "\n" is ugly, but it ensures single spacing.
 my $test_data_text = join("\n", @test_data_lines);
 
 my @tasks = ( sub { return 1 + 1},
