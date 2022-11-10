@@ -126,6 +126,8 @@ Submit a task reference for [later] execution.
 
 The task is executed immediately, unless the current pid table is full.
 
+Returns a Future object to track execution and retrieve return value.
+
 =cut
 
 sub submit {
