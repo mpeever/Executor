@@ -1,4 +1,4 @@
-When I worked at Pacific Lutheran University, the center of the IdM system was a pair of AlphaServers running Tru64 Unix, and several thousand (perhaps hundreds of thousands) lines of Perl code.
+When I worked at Pacific Lutheran University, the center of the IdM system was a pair of AlphaServers running Tru64 Unix and several thousand (perhaps hundreds of thousands) lines of Perl code.
 
 Unfortunately, some of our Perl-based tasks were VERY slow, mainly because they had to make HTTP(S) calls to external vendors.
 
@@ -6,6 +6,6 @@ The obvious solution was to parallelize those tasks, but we were working in non-
 
 I no longer have that code: it was more than ten years ago!
 
-This is a reimplementation of that design. I've included unit tests, but no load tests. I've also modernized the Perl quite a bit, using Try::Tiny to catch Errors and Moose to handle object-oriented details. As I recall, the original wasn't much longer than this, but had fewer features.
+This is a reimplementation of that concept. I've included unit tests, but no load tests. I've also modernized the Perl quite a bit, using Try::Tiny to catch Errors and Moose to handle object-oriented details. As I recall, the original wasn't much longer than this, but had fewer features.
 
 -mark

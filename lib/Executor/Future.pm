@@ -23,6 +23,25 @@ has 'fh' => ( is => 'rw' );
 
 has 'executor' => ( is => 'ro' );
 
+has 'complete' => ( is => 'rw',
+		    default => sub { 0 } );
+
+around 'complete' => sub {
+  my $original = shift;
+  my $self = shift;
+  my $value = shift;
+
+  return $self->$original($value) unless $value;
+
+  # Can't complete if we don't have a PID.
+  return $self->$original() unless $self->pid;
+
+  # we're marking this complete, so we'll remove it from the Executor
+  $self->executor->remove_future($self->pid);
+
+  $self->$original($value);
+};
+
 has 'value' => ( is => 'ro',
 		 lazy => 1,
 		 default => sub {

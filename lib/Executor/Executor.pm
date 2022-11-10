@@ -95,6 +95,7 @@ sub _execute {
     else { # Child 
       my $result = $future->callable->();
       print STDOUT $result;
+      $future->complete(1);
       exit 0;
     }
   } catch {
