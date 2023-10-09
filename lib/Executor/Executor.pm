@@ -14,7 +14,7 @@ use Moose;
 
 B<This module> defines an Executor that executes tasks in parallel.
 
-B<Executor> provides no retry logic, and no error handling for submitted code.
+B<Executor> provides no retry logic, and only minimal error handling for submitted code.
 It simply maintains a queue of waiting tasks, and a Future mechanism to allow 
 calling code to access the results of computation.
 
@@ -109,11 +109,19 @@ sub _execute {
       $self->add_future($pid, $future);
     }
 
-    else { # Child 
-      my $result = $future->callable->();
-      print STDOUT $result;
-      $future->complete(1);
-      exit 0;
+    else { # Child
+      # This is just plain ugly. Try::Tiny won't let me nest blocks, so I have revert to old-skool Perl here.
+      eval {
+	my $result = $future->callable->();
+	print STDOUT $result;
+	exit 0;
+      };
+
+      if ($@) {
+	chomp $@;
+	print STDOUT $@;
+      }
+      exit 1;
     }
   } catch {
     carp "caught Exception attempting to fork a child process: $_";
