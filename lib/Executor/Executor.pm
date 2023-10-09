@@ -143,7 +143,7 @@ sub submit {
   my $self = shift;
   my $code = shift;
 
-  my $future = Executor::Future->new({ executor => $self,
+  my $future = new Executor::Future({ executor => $self,
 				       callable => $code });
   $self->_execute($future);
 
