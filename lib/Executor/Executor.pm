@@ -110,7 +110,8 @@ sub _execute {
     }
 
     else { # Child
-      # This is just plain ugly. Try::Tiny won't let me nest blocks, so I have revert to old-skool Perl here.
+      # This is just plain ugly.
+      # Try::Tiny won't let me nest try/catch blocks, so I have revert to old-skool Perl here.
       eval {
 	my $result = $future->callable->();
 	print STDOUT $result;
