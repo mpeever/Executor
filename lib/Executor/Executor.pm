@@ -144,7 +144,7 @@ sub submit {
   my $code = shift;
 
   my $future = new Executor::Future({ executor => $self,
-				       callable => $code });
+				      callable => $code });
   $self->_execute($future);
 
   unless ($future->pid) { # code is NOT executing, queue for later execution

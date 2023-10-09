@@ -8,4 +8,6 @@ I no longer have that code: it was more than ten years ago!
 
 This is a reimplementation of that concept. I've included unit tests, but no load tests. I've also modernized the Perl quite a bit, using Try::Tiny to catch Errors and Moose to handle object-oriented details. As I recall, the original wasn't much longer than this, but had fewer features.
 
+You should be able to run all the unit tests using something like `prove -l` from the main directory.
+
 -mark

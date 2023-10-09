@@ -8,7 +8,7 @@ use Test::More ;
 
 use_ok( 'Executor::Executor' );
 
-my $instance = Executor::Executor->new({size => 2});
+my $instance = new Executor::Executor({size => 2});
 
 ok($instance->is_empty);
 ok(not $instance->queue_size);

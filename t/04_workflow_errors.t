@@ -9,7 +9,7 @@ use Test::More;
 use_ok( 'Executor::Executor' );
 
 # Create a single-thread Executor to test error/exception handling.
-my $instance = Executor::Executor->new({size => 1});
+my $instance = new Executor::Executor({size => 1});
 
 ok($instance->is_empty);
 ok(not $instance->queue_size);
