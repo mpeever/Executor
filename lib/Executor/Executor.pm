@@ -6,7 +6,7 @@ use Try::Tiny;
 use constant DEFAULT_SIZE => 5;
 use Executor::Future;
 
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.2';
 
 use Moose;
 
@@ -20,7 +20,7 @@ calling code to access the results of computation.
 
 Waiting tasks are executed in order as earlier (executed) tasks are found to be complete.
 
-This is loosely based on java.util.concurrent.*
+This is loosely based on C<java.util.concurrent.*>
 
 =head1 AUTHOR
 
