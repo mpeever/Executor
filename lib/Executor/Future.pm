@@ -1,10 +1,32 @@
 package Executor::Future;
 
-our $VERSION = '0.0.1';
+=head1 NAME
+
+Executor::Future - naive Future interface for Perl IPC to track parallelized child processes.
+
+=head1 VERSION
+
+ 0.0.2
+
+=cut
+
+our $VERSION = '0.0.2';
 
 use Moose;
 
 =head1 SYNOPSIS
+
+  use Executor::Executor;
+  use Executor::Future;
+
+  my $executor = new Executor::Executor({size => 2});
+  my $future = $executor->submit( sub { return 237 * 213 });
+
+  my $pid = $future->pid;
+
+  my $value = $future->value; # blocking call
+
+=head1 DESCRIPTION
 
 B<This module> defines a Future object to track task execution in an Executor.
 

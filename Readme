@@ -1,13 +1,22 @@
-When I worked at Pacific Lutheran University, the center of the IdM system was a pair of AlphaServers running Tru64 Unix and several thousand (perhaps hundreds of thousands) lines of Perl code.
+When I worked at Pacific Lutheran University, the center of the IdM system was a pair of AlphaServers running Tru64 Unix and several thousand (perhaps several hundreds of thousands) lines of Perl code.
 
 Unfortunately, some of our Perl-based tasks were VERY slow, mainly because they had to make HTTP(S) calls to external vendors.
 
-The obvious solution was to parallelize those tasks, but we were working in non-threaded Perl. So I wrote an "Executor" that would [loosely] imitate a Java ExecutorService as far as the API was concerned. Of course it wasn't as feature rich as the Java version, partly because it was faking out Java Threads with Unix processes. But it worked well and solved the business problem.
+The obvious solution was to parallelize those tasks, but we were working in non-threaded Perl. So I wrote an "Executor" that would [loosely] imitate a Java `ExecutorService` as far as the API was concerned. Of course it wasn't as feature rich as the Java version, partly because it was faking out Java Threads with Unix processes. But it worked well and solved the business problem.
 
 I no longer have that code: it was more than ten years ago!
 
 This is a reimplementation of that concept. I've included unit tests, but no load tests. I've also modernized the Perl quite a bit, using Try::Tiny to catch Errors and Moose to handle object-oriented details. As I recall, the original wasn't much longer than this, but had fewer features.
 
-On a reasonably up-to-date system with Perl and make installed, you should be able to run all the unit tests using `make test` from the main directory.
+This is all written in object-oriented Perl, mainly to imitate Java more closely.
+
+On a reasonably up-to-date system with Perl and make installed, you should be able to use `make` to run everything:
+ 1. run all the unit tests using `make test` from the main directory
+ 2. generate man(1) pages using `make docs` or `make man` from the main directory
+ 3. clean up artifacts (currently only man(1) pages) with `make clean` from the main directory
+ 4. there is no `make install` option, as it seems silly to install manpages for sample code.
+
+You should be able to view the manpages with something like `man doc/Executor/Executor.3` or `man doc/Executor/Future.3`.
+
 
 -mark

@@ -6,11 +6,31 @@ use Try::Tiny;
 use constant DEFAULT_SIZE => 5;
 use Executor::Future;
 
+=head1 NAME
+
+Executor::Executor - naive ExecutorService interface to Perl IPC to represent parallel execution as a ThreadPool.
+
+=head1 VERSION
+
+ 0.0.2
+
+=cut
+
 our $VERSION = '0.0.2';
 
 use Moose;
 
 =head1 SYNOPSIS
+
+  use Executor::Executor;
+  use Executor::Future;
+
+  my $executor = new Executor::Executor({size => 2});
+  my $future = $executor->submit( sub { return 237 * 213 });
+
+  my $value = $future->value(); # blocking call
+
+=head1 DESCRIPTION
 
 B<This module> defines an Executor that executes tasks in parallel.
 
